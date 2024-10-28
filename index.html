@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biblioteca</title>
+  <link rel="stylesheet" href="assets/Style.css">
+  <link rel="stylesheet" href="inputs.js">
+</head>
+<body>
+  <div class="main-container">
+    <!-- Barra Lateral de Usuários -->
+    <aside class="sidebar">
+      <h2>Usuários</h2>
+      <ul id="user-list">
+        <!-- Lista de usuários será preenchida dinamicamente -->
+      </ul>
+    </aside>
+
+    <!-- Conteúdo Principal -->
+    <div class="content">
+      <h1>Biblioteca</h1>
+      
+      <!-- Formulário de Itens -->
+      <div class="form-section">
+        <h2>Adicionar Item</h2>
+        <form id="item-form">
+          <label for="item-type">Tipo:</label>
+          <select id="item-type">
+            <option value="Livro">Livro</option>
+            <option value="Revista">Revista</option>
+            <option value="DVD">DVD</option>
+          </select>
+          <label for="title">Título:</label>
+          <input type="text" id="title" required>
+          <label for="author">Autor/Diretor:</label>
+          <input type="text" id="author" required>
+          <label for="year">Ano:</label>
+          <input type="number" id="year" required>
+          <label for="quantity">Quantidade:</label>
+          <input type="number" id="quantity" required>
+          <button type="button" onclick="addItem()">Adicionar Item</button>
+        </form>
+      </div>
+
+      <!-- Formulário de Usuários -->
+      <div class="form-section">
+        <h2>Adicionar Usuário</h2>
+        <form id="user-form">
+          <label for="user-name">Nome:</label>
+          <input type="text" id="user-name" required>
+          <label for="user-type">Tipo:</label>
+          <select id="user-type">
+            <option value="Aluno">Aluno</option>
+            <option value="Professor">Professor</option>
+            <option value="Visitante">Visitante</option>
+          </select>
+          <button type="button" onclick="addUser()">Adicionar Usuário</button>
+        </form>
+      </div>
+
+      <!-- Tabela de Itens -->
+      <h2>Itens Disponíveis</h2>
+      <table id="items-table">
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Título</th>
+            <th>Autor/Diretor</th>
+            <th>Ano</th>
+            <th>Quantidade Disponível</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Linhas dos itens adicionados aparecerão aqui -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="inputs.js"></script>
+</body>
+</html>
