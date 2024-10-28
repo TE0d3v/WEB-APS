@@ -1,4 +1,4 @@
-// Classe Item
+
 class Item {
   constructor(type, title, author, year, quantity) {
     this.type = type;
@@ -22,7 +22,6 @@ class Item {
   }
 }
 
-// Classe User
 class User {
   constructor(name, type) {
     this.name = name;
@@ -57,7 +56,6 @@ class User {
   }
 }
 
-// Classe Loan
 class Loan {
   constructor(item, user, loanDate) {
     this.item = item;
@@ -79,12 +77,10 @@ class Loan {
   }
 }
 
-// Arrays para armazenamento
 const items = [];
 const users = [];
 const loans = [];
 
-// Função para adicionar itens
 function addItem() {
   const type = document.getElementById("item-type").value;
   const title = document.getElementById("title").value;
@@ -97,7 +93,6 @@ function addItem() {
   updateItemTable();
 }
 
-// Função para adicionar usuários
 function addUser() {
   const name = document.getElementById("user-name").value;
   const type = document.getElementById("user-type").value;
@@ -109,7 +104,6 @@ function addUser() {
   updateUserList();
 }
 
-// Função para atualizar a lista de usuários
 function updateUserList() {
   const userListContainer = document.getElementById("user-list");
 
@@ -118,8 +112,8 @@ function updateUserList() {
     return;
   }
 
-  userListContainer.innerHTML = users.length === 0 
-    ? "<p>Nenhum usuário cadastrado.</p>" 
+  userListContainer.innerHTML = users.length === 0
+    ? "<p>Nenhum usuário cadastrado.</p>"
     : users.map(user => `
       <div class="user-item">
         <h3>${user.name} (${user.type})</h3>
@@ -133,7 +127,6 @@ function updateUserList() {
     `).join('');
 }
 
-// Função para atualizar a tabela de itens
 function updateItemTable() {
   const tableBody = document.getElementById("items-table").querySelector("tbody");
   tableBody.innerHTML = items.map(item => `
@@ -151,7 +144,6 @@ function updateItemTable() {
   `).join('');
 }
 
-// Função para emprestar um item
 function borrowItem(title) {
   const item = items.find(i => i.title === title);
   const userName = prompt("Digite o nome do usuário:");
@@ -168,14 +160,17 @@ function borrowItem(title) {
   }
 
   const loanDate = new Date();
-  loans.push(new Loan(item, user, loanDate));
+  const loan = new Loan(item, user, loanDate);
+  loans.push(loan);
 
   user.borrowItem();
   updateItemTable();
   updateUserList();
+
+  const returnDays = user.getReturnDays();
+  alert(`Empréstimo realizado com sucesso! ${user.name} deve devolver o item em ${returnDays} dias.`);
 }
 
-// Função para devolver um item
 function returnItem(title) {
   const item = items.find(i => i.title === title);
   const userName = prompt("Digite o nome do usuário para devolver:");
