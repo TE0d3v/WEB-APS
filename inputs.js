@@ -1,3 +1,4 @@
+// Classe Item
 class Item {
   constructor(type, title, author, year, quantity) {
     this.type = type;
@@ -17,10 +18,11 @@ class Item {
   }
 
   returnItem() {
-    this.available++;
+    if (this.available < this.quantity) this.available++;
   }
 }
 
+// Classe User
 class User {
   constructor(name, type) {
     this.name = name;
@@ -51,16 +53,18 @@ class User {
   }
 
   returnBorrowedItem() {
-    this.borrowedItems--;
+    if (this.borrowedItems > 0) this.borrowedItems--;
   }
 }
 
+// Classe Loan
 class Loan {
-  constructor(item, user, loanDate, returnDate) {
+  constructor(item, user, loanDate) {
     this.item = item;
     this.user = user;
     this.loanDate = loanDate;
-    this.returnDate = returnDate;
+    this.returnDate = new Date(loanDate);
+    this.returnDate.setDate(loanDate.getDate() + user.getReturnDays());
     this.returned = false;
   }
 
@@ -75,10 +79,12 @@ class Loan {
   }
 }
 
+// Arrays para armazenamento
 const items = [];
 const users = [];
 const loans = [];
 
+// Função para adicionar itens
 function addItem() {
   const type = document.getElementById("item-type").value;
   const title = document.getElementById("title").value;
@@ -88,10 +94,10 @@ function addItem() {
 
   const newItem = new Item(type, title, author, year, quantity);
   items.push(newItem);
-
   updateItemTable();
 }
 
+// Função para adicionar usuários
 function addUser() {
   const name = document.getElementById("user-name").value;
   const type = document.getElementById("user-type").value;
@@ -103,26 +109,35 @@ function addUser() {
   updateUserList();
 }
 
+// Função para atualizar a lista de usuários
 function updateUserList() {
-  const userList = document.getElementById("user-list");
-  userList.innerHTML = "";
+  const userListContainer = document.getElementById("user-list");
 
-  users.forEach(user => {
-    const listItem = document.createElement("li");
-    listItem.innerHTML = `<span>${user.name} (${user.type})</span> Itens Emprestados: ${user.borrowedItems}`;
-    userList.appendChild(listItem);
-  });
+  if (!userListContainer) {
+    console.error("Elemento com id 'user-list' não encontrado.");
+    return;
+  }
+
+  userListContainer.innerHTML = users.length === 0 
+    ? "<p>Nenhum usuário cadastrado.</p>" 
+    : users.map(user => `
+      <div class="user-item">
+        <h3>${user.name} (${user.type})</h3>
+        <div class="borrowed-items">
+          <strong>Itens emprestados:</strong>
+          <ul>
+            ${user.borrowedItems > 0 ? `<li>${user.borrowedItems} itens</li>` : '<li>Nenhum item emprestado</li>'}
+          </ul>
+        </div>
+      </div>
+    `).join('');
 }
 
+// Função para atualizar a tabela de itens
 function updateItemTable() {
   const tableBody = document.getElementById("items-table").querySelector("tbody");
-  tableBody.innerHTML = "";
-
-  items.forEach(item => {
-    const row = document.createElement("tr");
-    row.classList.add(item.available > 0 ? "status-disponivel" : "status-emprestado");
-
-    row.innerHTML = `
+  tableBody.innerHTML = items.map(item => `
+    <tr class="${item.available > 0 ? "status-disponivel" : "status-emprestado"}">
       <td class="item-${item.type.toLowerCase()}">${item.type}</td>
       <td>${item.title}</td>
       <td>${item.author}</td>
@@ -132,17 +147,16 @@ function updateItemTable() {
         <button onclick="borrowItem('${item.title}')">Emprestar</button>
         <button onclick="returnItem('${item.title}')">Devolver</button>
       </td>
-    `;
-
-    tableBody.appendChild(row);
-  });
+    </tr>
+  `).join('');
 }
 
+// Função para emprestar um item
 function borrowItem(title) {
   const item = items.find(i => i.title === title);
   const userName = prompt("Digite o nome do usuário:");
-
   const user = users.find(u => u.name === userName);
+
   if (!user || !item) {
     alert("Usuário ou item não encontrado.");
     return;
@@ -154,21 +168,17 @@ function borrowItem(title) {
   }
 
   const loanDate = new Date();
-  const returnDate = new Date(loanDate);
-  returnDate.setDate(loanDate.getDate() + user.getReturnDays());
-
-  const newLoan = new Loan(item, user, loanDate, returnDate);
-  loans.push(newLoan);
+  loans.push(new Loan(item, user, loanDate));
 
   user.borrowItem();
   updateItemTable();
   updateUserList();
 }
 
+// Função para devolver um item
 function returnItem(title) {
   const item = items.find(i => i.title === title);
   const userName = prompt("Digite o nome do usuário para devolver:");
-
   const user = users.find(u => u.name === userName);
   const loan = loans.find(l => l.item.title === title && l.user.name === userName && !l.returned);
 

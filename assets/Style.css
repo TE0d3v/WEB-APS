@@ -14,6 +14,7 @@ body {
   min-height: 100vh;
 }
 
+/* Contêiner Principal */
 .main-container {
   display: flex;
   width: 90%;
@@ -21,31 +22,51 @@ body {
   background-color: #ffffff;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Barra Lateral */
 .sidebar {
   width: 250px;
   background-color: #333;
-  color: white;
+  color: #fff;
   padding: 20px;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .sidebar h2 {
   text-align: center;
   font-size: 1.5em;
+  margin-bottom: 20px;
 }
 
-.sidebar ul {
-  list-style-type: none;
-  padding: 0;
+.user-list {
+  list-style: none;
 }
 
-.sidebar li {
-  margin: 10px 0;
-  font-size: 1.1em;
+.user-item {
+  background-color: #444;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.user-item h3 {
+  font-size: 1.2em;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.borrowed-items {
+  font-size: 0.9em;
+}
+
+.borrowed-item {
+  font-size: 0.9em;
+  color: #ddd;
+  margin: 3px 0;
 }
 
 /* Conteúdo Principal */
@@ -54,17 +75,18 @@ body {
   flex-grow: 1;
 }
 
-h1 {
-  font-size: 2em;
-  text-align: center;
+h1, h2 {
   color: #333;
   margin-bottom: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2em;
 }
 
 h2 {
   font-size: 1.5em;
-  color: #333;
-  margin-bottom: 10px;
 }
 
 .form-section {
@@ -72,7 +94,7 @@ h2 {
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 label, input, select, button {
@@ -88,10 +110,11 @@ input, select, button {
 
 button {
   background-color: #28a745;
-  color: white;
+  color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 button:hover {
@@ -102,11 +125,12 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  font-size: 0.95em;
+  text-align: center;
 }
 
 table, th, td {
   border: 1px solid #ddd;
-  text-align: center;
 }
 
 th, td {
@@ -123,15 +147,15 @@ tr:nth-child(odd) {
 
 /* Cores para Tipos de Itens */
 .item-livro {
-  color: green;
+  color: #2e7d32; /* Verde */
 }
 
 .item-revista {
-  color: blue;
+  color: #1976d2; /* Azul */
 }
 
 .item-dvd {
-  color: purple;
+  color: #6a1b9a; /* Roxo */
 }
 
 /* Status de Disponibilidade */
@@ -143,7 +167,7 @@ tr:nth-child(odd) {
   background-color: #ffcdd2;
 }
 
-/* Media Queries para Responsividade */
+/* Responsividade */
 @media (max-width: 768px) {
   .main-container {
     flex-direction: column;
@@ -164,3 +188,4 @@ tr:nth-child(odd) {
     font-size: 0.9em;
   }
 }
+
