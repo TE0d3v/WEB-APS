@@ -38,13 +38,13 @@ Sistema de Gestão de Biblioteca com Interface Web desenvolvido para a disciplin
 
 WEB-APS/
 
-├── index.html        ***Estrutura HTML da página***
+├── index.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ***Estrutura HTML da página***
 
-├── style.css         ***Estilização CSS***
+├── style.css  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ***Estilização CSS***
 
-├── script.js         ***Lógica JavaScript para funcionalidades***
+├── script.js  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ***Lógica JavaScript para funcionalidades***
 
-└── README.md         ***Documentação do projeto***
+└── README.md &nbsp; ***Documentação do projeto***
 
 ## 📚 Descrição Técnica 
 
